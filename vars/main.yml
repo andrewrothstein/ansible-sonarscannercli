@@ -1,0 +1,8 @@
+---
+# vars file for sonarscannercli
+sonarscannercli_platform: '{{ sonarscannercli_ver }}-{{ sonarscannercli_os }}'
+sonarscannercli_zip: sonar-scanner-cli-{{ sonarscannercli_platform }}.zip
+sonarscannercli_url: '{{ sonarscannercli_mirror }}/{{ sonarscannercli_zip }}'
+sonarscannercli_checksum: '{{ sonarscannercli_checksums[sonarscannercli_ver][sonarscannercli_os] }}'
+sonarscannercli_install_dir: '{{ sonarscannercli_parent_install_dir }}/sonar-scanner-{{ sonarscannercli_platform }}'
+sonarscannercli_link_dir: '{{ sonarscannercli_parent_install_dir }}/sonar-scanner'

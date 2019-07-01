@@ -1,0 +1,59 @@
+---
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
+- name: look for install..
+  become: yes
+  stat:
+    path: '{{ sonarscannercli_install_dir }}'
+  changed_when: False
+  register: sonarscannercli_binary
+- when: not sonarscannercli_binary.stat.exists
+  block:
+    - name: download...
+      become: yes
+      become_user: root
+      get_url:
+        url: '{{ sonarscannercli_url }}'
+        dest: /tmp/{{ sonarscannercli_zip }}
+        mode: 0644
+        checksum: '{{ sonarscannercli_checksum }}'
+    - name: unarchive...
+      become: yes
+      become_user: root
+      unarchive:
+        remote_src: yes
+        src: /tmp/{{ sonarscannercli_zip }}
+        dest: '{{ sonarscannercli_parent_install_dir }}'
+        creates: '{{ sonarscannercli_install_dir }}'
+  always:
+    - name: cleanup
+      become: yes
+      become_user: root
+      file:
+        path: /tmp/{{ sonarscannercli_zip }}
+        state: absent
+- name: link
+  become: yes
+  become_user: root
+  file:
+    src: '{{ sonarscannercli_install_dir }}'
+    dest: '{{ sonarscannercli_link_dir }}'
+    state: link
+- name: add to default shell path
+  become: yes
+  become_user: root
+  with_items:
+    - f: sonarscannercli.sh
+      d: /etc/profile.d
+  template:
+    src: '{{ item.f }}.j2'
+    dest: '{{ item.d }}/{{ item.f }}'
+    mode: '{{ item.m | default(0644) }}'
