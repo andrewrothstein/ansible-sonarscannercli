@@ -12,8 +12,6 @@
 
 - name: run installation prerequisites based on OS family
   include_tasks: '{{ role_path }}/tasks/{{ ansible_os_family }}.yml'
-  loop_control:
-  loop_var: os_based_installation_task
 
 - name: look for install..
   become: yes
