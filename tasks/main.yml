@@ -12,6 +12,7 @@
 
 - name: run installation prerequisites based on OS family
   include_tasks: '{{ role_path }}/tasks/{{ ansible_os_family }}.yml'
+  when: ansible_os_family == 'Alpine'
 
 - name: look for install..
   become: yes
