@@ -1,0 +1,4 @@
+- name: '{{ansible_os_family}} - Install openjdk8-jre'
+  apk:
+    name: openjdk8-jre
+    state: present

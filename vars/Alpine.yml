@@ -1,0 +1,3 @@
+---
+sonarscannercli_os: alpine
+sonarscannercli_platform: '{{ sonarscannercli_ver }}'
