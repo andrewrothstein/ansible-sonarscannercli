@@ -3,25 +3,31 @@ VER='4.0.0.1744'
 DIR=~/Downloads
 MIRROR=https://binaries.sonarsource.com/Distribution/sonar-scanner-cli
 
-dl()
-{
-    OS=$1
-    FILE=sonar-scanner-cli-${VER}-${OS}.zip
-    URL=$MIRROR/$FILE
-    LFILE=$DIR/$FILE
+dl () {
+    local key=$1
+    local file=$2
+    local url=$MIRROR/$file
+    local lfile=$DIR/$file
 
-    if [ ! -e $LFILE ];
+    if [ ! -e $lfile ];
     then
-        wget -q -O $LFILE $URL
+        wget -q -O $lfile $url
     fi
 
-    printf "    # %s\n" $URL
-    printf "    %s: sha256:%s\n" $OS `sha256sum $LFILE | awk '{print $1}'`
+    printf "    # %s\n" $url
+    printf "    %s: sha256:%s\n" $key `sha256sum $lfile | awk '{print $1}'`
+}
+
+dl_os () {
+    local os=$1
+    local file=sonar-scanner-cli-${VER}-${os}.zip
+    dl $os $file
 }
 
 printf "  '%s':\n" $VER
-dl linux
-dl macosx
-dl windows
+dl javaless sonar-scanner-cli-${VER}.zip
+dl_os linux
+dl_os macosx
+dl_os windows
 
 

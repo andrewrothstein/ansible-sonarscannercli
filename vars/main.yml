@@ -1,6 +1,6 @@
 ---
 # vars file for sonarscannercli
-sonarscannercli_platform: '{{ sonarscannercli_ver }}-{{ sonarscannercli_os }}'
+sonarscannercli_platform: '{% if sonarscannercli_os == "javaless" %}{{ sonarscannercli_ver }}{% else %}{{ sonarscannercli_ver }}-{{ sonarscannercli_os }}{% endif %}'
 sonarscannercli_zip: sonar-scanner-cli-{{ sonarscannercli_platform }}.zip
 sonarscannercli_url: '{{ sonarscannercli_mirror }}/{{ sonarscannercli_zip }}'
 sonarscannercli_checksum: '{{ sonarscannercli_checksums[sonarscannercli_ver][sonarscannercli_os] }}'
