@@ -57,3 +57,7 @@
     src: '{{ item.f }}.j2'
     dest: '{{ item.d }}/{{ item.f }}'
     mode: '{{ item.m | default(0644) }}'
+- name: warmup cache
+  when: sonarscannercli_cache_warmup
+  shell: sonar-scanner -Dsonar.host.url={{ sonarscannercli_host_url }} --debug
+  ignore_errors: True
