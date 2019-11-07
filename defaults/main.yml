@@ -14,3 +14,6 @@ sonarscannercli_checksums:
     # https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.0.0.1744-windows.zip
     windows: sha256:ff33485ff8722a654443463c2547f087a29dfc0a27876a38d1e0ee79144772b7
 sonarscannercli_parent_install_dir: /usr/local
+
+sonarscannercli_host_url: http://localhost:9000
+sonarscannercli_cache_warmup: false
