@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-VER='4.0.0.1744'
+VER=${1:-4.2.0.1873}
 DIR=~/Downloads
 MIRROR=https://binaries.sonarsource.com/Distribution/sonar-scanner-cli
 
