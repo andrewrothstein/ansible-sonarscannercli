@@ -7,6 +7,7 @@ sonarscannercli_parent_install_dir: /usr/local
 
 sonarscannercli_cache_warmup: false
 #sonarscannercli_host_url: http://localhost:9000
+#sonarscannercli_java_home: /usr/local/openjdk-jre
 
 sonarscannercli_checksums:
   '4.0.0.1744':

@@ -59,5 +59,7 @@
     mode: '{{ item.m | default(0644) }}'
 - name: warmup cache
   when: sonarscannercli_cache_warmup
+  environment:
+    JAVA_HOME: '{{ sonarscannercli_java_home }}'
   command: '{{ sonarscannercli_install_dir }}/bin/sonar-scanner -Dsonar.host.url={{ sonarscannercli_host_url }} --debug'
   ignore_errors: True
