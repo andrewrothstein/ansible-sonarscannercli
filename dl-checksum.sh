@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-VER=${1:-4.2.0.1873}
+VER=${1:-4.3.0.2102}
 DIR=~/Downloads
 MIRROR=https://binaries.sonarsource.com/Distribution/sonar-scanner-cli
 
@@ -29,5 +29,3 @@ dl javaless sonar-scanner-cli-${VER}.zip
 dl_os linux
 dl_os macosx
 dl_os windows
-
-

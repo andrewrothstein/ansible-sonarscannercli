@@ -1,6 +1,6 @@
 ---
 # defaults file for sonarscannercli
-sonarscannercli_ver: '4.2.0.1873'
+sonarscannercli_ver: '4.3.0.2102'
 sonarscannercli_mirror: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli
 sonarscannercli_os: linux
 sonarscannercli_parent_install_dir: /usr/local
@@ -28,3 +28,12 @@ sonarscannercli_checksums:
     macosx: sha256:b2b126daab0d5e67ead0550f3250e418691970e9ec89d6931160e4a96d584b24
     # https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873-windows.zip
     windows: sha256:ece11a9e1e669cc4bfbfb642f61d254c4dab554ade78dd95b9e24af24cdcf9f3
+  '4.3.0.2102':
+    # https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.3.0.2102.zip
+    javaless: sha256:8c78a2a1af24dfbc564d87ba6826795e6892d3035cb91a98c61d9e33e2b3cd46
+    # https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.3.0.2102-linux.zip
+    linux: sha256:875e5fe9037aae62f5f8e4ee1d4059d9cd70c57813d78c25cc8b195877aaede6
+    # https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.3.0.2102-macosx.zip
+    macosx: sha256:29b8eeb82ae6d998488d7ad7dfb4d5245b079b2cc0ae82531fbb96c34a435674
+    # https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.3.0.2102-windows.zip
+    windows: sha256:35acd3329b37427c0441175e83fb79775549412f9783c8c9ab268d8d9f95b468
