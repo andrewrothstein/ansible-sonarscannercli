@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-VER=${1:-4.3.0.2102}
 DIR=~/Downloads
 MIRROR=https://binaries.sonarsource.com/Distribution/sonar-scanner-cli
 
@@ -15,17 +14,23 @@ dl () {
     fi
 
     printf "    # %s\n" $url
-    printf "    %s: sha256:%s\n" $key `sha256sum $lfile | awk '{print $1}'`
+    printf "    %s: sha256:%s\n" $key $(sha256sum $lfile | awk '{print $1}')
 }
 
 dl_os () {
-    local os=$1
-    local file=sonar-scanner-cli-${VER}-${os}.zip
+    local ver=$1
+    local os=$2
+    local file=sonar-scanner-cli-${ver}-${os}.zip
     dl $os $file
 }
 
-printf "  '%s':\n" $VER
-dl javaless sonar-scanner-cli-${VER}.zip
-dl_os linux
-dl_os macosx
-dl_os windows
+dl_ver() {
+    local ver=$1
+    printf "  '%s':\n" $ver
+    dl javaless sonar-scanner-cli-${ver}.zip
+    dl_os $ver linux
+    dl_os $ver macosx
+    dl_os $ver windows
+}
+
+dl_ver ${1:-4.3.0.2102}
