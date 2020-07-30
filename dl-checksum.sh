@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+set -e
 DIR=~/Downloads
 MIRROR=https://binaries.sonarsource.com/Distribution/sonar-scanner-cli
 
@@ -33,4 +34,4 @@ dl_ver() {
     dl_os $ver windows
 }
 
-dl_ver ${1:-4.3.0.2102}
+dl_ver ${1:-4.4.0.2170}
