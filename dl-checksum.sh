@@ -34,4 +34,4 @@ dl_ver() {
     dl_os $ver windows
 }
 
-dl_ver ${1:-4.4.0.2170}
+dl_ver ${1:-4.5.0.2216}

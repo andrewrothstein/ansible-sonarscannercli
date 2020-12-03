@@ -9,7 +9,7 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: look for install..
+- name: look for install in {{ sonarscannercli_install_dir }}
   become: yes
   stat:
     path: '{{ sonarscannercli_install_dir }}'
@@ -17,30 +17,30 @@
   register: sonarscannercli_binary
 - when: not sonarscannercli_binary.stat.exists
   block:
-    - name: download...
+    - name: downloading {{ sonarscannercli_url }}
       become: yes
       become_user: root
       get_url:
         url: '{{ sonarscannercli_url }}'
-        dest: /tmp/{{ sonarscannercli_zip }}
+        dest: '{{ sonarscannercli_tmp_zip }}'
         mode: 0644
         checksum: '{{ sonarscannercli_checksum }}'
-    - name: unarchive...
+    - name: unarchiving {{ sonarscannercli_tmp_zip }} into {{ sonarscannercli_install_dir }}
       become: yes
       become_user: root
       unarchive:
         remote_src: yes
-        src: /tmp/{{ sonarscannercli_zip }}
+        src: '{{ sonarscannercli_tmp_zip }}'
         dest: '{{ sonarscannercli_parent_install_dir }}'
         creates: '{{ sonarscannercli_install_dir }}'
   always:
-    - name: cleanup
+    - name: rm {{ sonarscannercli_tmp_zip }}
       become: yes
       become_user: root
       file:
-        path: /tmp/{{ sonarscannercli_zip }}
+        path: '{{ sonarscannercli_tmp_zip }}'
         state: absent
-- name: link
+- name: linking {{ sonarscannercli_link_dir }} to executables in {{ sonarscannercli_install_dir }}
   become: yes
   become_user: root
   file:
@@ -57,7 +57,7 @@
     src: '{{ item.f }}.j2'
     dest: '{{ item.d }}/{{ item.f }}'
     mode: '{{ item.m | default(0644) }}'
-- name: warmup cache
+- name: warmup sonarscanner cli cache
   when: sonarscannercli_cache_warmup
   environment:
     JAVA_HOME: '{{ sonarscannercli_java_home }}'
