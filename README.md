@@ -1,6 +1,6 @@
 andrewrothstein.sonarscannercli
 =========
-[![Build Status](https://travis-ci.org/andrewrothstein/ansible-sonarscannercli.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-sonarscannercli)
+![Build Status](https://github.com/andrewrothstein/ansible-sonarscannercli/actions/workflows/build.yml/badge.svg)
 
 Installs the [Sonar Scanner CLI](https://github.com/SonarSource/sonar-scanner-cli)
 
