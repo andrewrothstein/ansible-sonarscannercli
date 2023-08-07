@@ -1,6 +1,6 @@
 ---
 - include_role:
-    name: andrewrothstein.unarchive-deps
+    name: andrewrothstein.unarchivedeps
 - name: resolve platform specific vars
   include_vars: '{{ item }}'
   with_first_found:
@@ -12,15 +12,15 @@
       paths:
         - '{{ role_path }}/vars'
 - name: look for install in {{ sonarscannercli_install_dir }}
-  become: yes
+  become: true
   stat:
     path: '{{ sonarscannercli_install_dir }}'
-  changed_when: False
+  changed_when: false
   register: sonarscannercli_binary
 - when: not sonarscannercli_binary.stat.exists
   block:
     - name: downloading {{ sonarscannercli_url }}
-      become: yes
+      become: true
       become_user: root
       get_url:
         url: '{{ sonarscannercli_url }}'
@@ -28,29 +28,29 @@
         mode: 0644
         checksum: '{{ sonarscannercli_checksum }}'
     - name: unarchiving {{ sonarscannercli_tmp_zip }} into {{ sonarscannercli_install_dir }}
-      become: yes
+      become: true
       become_user: root
       unarchive:
-        remote_src: yes
+        remote_src: true
         src: '{{ sonarscannercli_tmp_zip }}'
         dest: '{{ sonarscannercli_parent_install_dir }}'
         creates: '{{ sonarscannercli_install_dir }}'
   always:
     - name: rm {{ sonarscannercli_tmp_zip }}
-      become: yes
+      become: true
       become_user: root
       file:
         path: '{{ sonarscannercli_tmp_zip }}'
         state: absent
 - name: linking {{ sonarscannercli_link_dir }} to executables in {{ sonarscannercli_install_dir }}
-  become: yes
+  become: true
   become_user: root
   file:
     src: '{{ sonarscannercli_install_dir }}'
     dest: '{{ sonarscannercli_link_dir }}'
     state: link
 - name: add to default shell path
-  become: yes
+  become: true
   become_user: root
   with_items:
     - f: sonarscannercli.sh
@@ -64,4 +64,4 @@
   environment:
     JAVA_HOME: '{{ sonarscannercli_java_home }}'
   command: '{{ sonarscannercli_install_dir }}/bin/sonar-scanner -Dsonar.host.url={{ sonarscannercli_host_url }} --debug'
-  ignore_errors: True
+  ignore_errors: true
