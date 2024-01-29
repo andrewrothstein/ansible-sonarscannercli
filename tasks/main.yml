@@ -65,6 +65,6 @@
   when: sonarscannercli_cache_warmup
   environment:
     JAVA_HOME: '{{ sonarscannercli_java_home }}'
-  command: '{{ sonarscannercli_install_dir }}/bin/sonar-scanner -Dsonar.host.url={{ sonarscannercli_host_url }} --debug'
+  ansible.builtin.command: '{{ sonarscannercli_install_dir }}/bin/sonar-scanner -Dsonar.host.url={{ sonarscannercli_host_url }} --debug'
   changed_when: false
   ignore_errors: true
