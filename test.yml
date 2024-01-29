@@ -1,6 +1,12 @@
 ---
-- hosts: all
-  roles:
-    - role: '{{ playbook_dir }}'
-      sonarscannercli_os: javaless
-    - role: '{{ playbook_dir }}'
+- name: Testing andrewrothstein.sonarscannercli
+  hosts: all
+  tasks:
+    - name: Testing (javaless)
+      ansible.builtin.include_role:
+        name: '{{ playbook_dir }}'
+      vars:
+        sonarscannercli_os: javaless
+    - name: Testing (default)
+      ansible.builtin.include_role:
+        name: '{{ playbook_dir }}'
