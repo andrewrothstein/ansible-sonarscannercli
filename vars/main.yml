@@ -1,8 +1,19 @@
 ---
 # vars file for sonarscannercli
-sonarscannercli_platform: '{% if sonarscannercli_os == "javaless" %}{{ sonarscannercli_ver }}{% else %}{{ sonarscannercli_ver }}-{{ sonarscannercli_os }}{% endif %}'
+sonarscannercli_os: |-
+  {%- if sonarscannercli_javaless | bool -%}
+  javaless
+  {%- else %}
+  {{- sonarscannercli_os_map[ansible_system] }}
+  {%- endif %}
+sonarscannercli_platform: |-
+  {%- if sonarscannercli_javaless | bool %}
+  {{- sonarscannercli_ver }}
+  {%- else %}
+  {{- sonarscannercli_ver }}-{{ sonarscannercli_os }}
+  {%- endif %}
 sonarscannercli_zip: sonar-scanner-cli-{{ sonarscannercli_platform }}.zip
-sonarscannercli_tmp_zip: /tmp/{{ sonarscannercli_zip }}
+sonarscannercli_tmp_zip: '{{ sonarscannercli_tmp_dir | default("/tmp") }}/{{ sonarscannercli_zip }}'
 sonarscannercli_url: '{{ sonarscannercli_mirror }}/{{ sonarscannercli_zip }}'
 sonarscannercli_checksum: '{{ sonarscannercli_checksums[sonarscannercli_ver][sonarscannercli_os] }}'
 sonarscannercli_install_dir: '{{ sonarscannercli_parent_install_dir }}/sonar-scanner-{{ sonarscannercli_platform }}'
