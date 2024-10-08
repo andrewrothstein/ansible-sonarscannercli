@@ -7,14 +7,25 @@ sonarscannercli_os: |-
   {{- sonarscannercli_os_map[ansible_system] }}
   {%- endif %}
 sonarscannercli_platform: |-
-  {%- if sonarscannercli_javaless | bool %}
-  {{- sonarscannercli_ver }}
+  {%- if sonarscannercli_javaless | bool -%}
+  javaless
   {%- else %}
-  {{- sonarscannercli_ver }}-{{ sonarscannercli_os }}
+  {{- sonarscannercli_os }}-{{ sonarscannercli_arch_map[ansible_architecture] }}
   {%- endif %}
-sonarscannercli_zip: sonar-scanner-cli-{{ sonarscannercli_platform }}.zip
+sonarscannercli_zip: |-
+  {%- if sonarscannercli_javaless | bool -%}
+  sonar-scanner-cli-{{ sonarscannercli_ver }}.zip
+  {%- else -%}
+  sonar-scanner-cli-{{ sonarscannercli_ver }}-{{ sonarscannercli_platform }}.zip
+  {%- endif %}
+sonarscannercli_install_subdir: |-
+  {%- if sonarscannercli_javaless | bool -%}
+  sonar-scanner-{{ sonarscannercli_ver }}
+  {%- else -%}
+  sonar-scanner-{{ sonarscannercli_ver }}-{{ sonarscannercli_platform }}
+  {%- endif %}
 sonarscannercli_tmp_zip: '{{ sonarscannercli_tmp_dir | default("/tmp") }}/{{ sonarscannercli_zip }}'
 sonarscannercli_url: '{{ sonarscannercli_mirror }}/{{ sonarscannercli_zip }}'
-sonarscannercli_checksum: '{{ sonarscannercli_checksums[sonarscannercli_ver][sonarscannercli_os] }}'
-sonarscannercli_install_dir: '{{ sonarscannercli_parent_install_dir }}/sonar-scanner-{{ sonarscannercli_platform }}'
+sonarscannercli_checksum: '{{ sonarscannercli_checksums[sonarscannercli_ver][sonarscannercli_platform] }}'
+sonarscannercli_install_dir: '{{ sonarscannercli_parent_install_dir }}/{{ sonarscannercli_install_subdir }}'
 sonarscannercli_link_dir: '{{ sonarscannercli_parent_install_dir }}/sonar-scanner'
