@@ -45,4 +45,4 @@ dl_ver() {
     dl_os $ver windows x64
 }
 
-dl_ver ${1:-6.2.1.4610}
+dl_ver ${1:-7.0.2.4839}
